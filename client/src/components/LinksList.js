@@ -7,7 +7,7 @@ const LinksList = ({ links }) => {
   }
 
   return (
-    <table className="highlight, responsive-table">
+    <table className="highlight, responsiveTable, striped">
       <thead>
         <tr>
           <th>№</th>
@@ -22,7 +22,15 @@ const LinksList = ({ links }) => {
           return (
             <tr key={link._id}>
               <td>{index + 1}</td>
-              <td>{link.from}</td>
+              <td
+                style={{
+                  maxWidth: 200,
+                  overflow: "hidden",
+                  "textOverflow": "ellipsis",
+                }}
+              >
+                {link.from}
+              </td>
               <td>{link.to}</td>
               <td>
                 <Link to={`/detail/${link._id}`}>Открыть</Link>

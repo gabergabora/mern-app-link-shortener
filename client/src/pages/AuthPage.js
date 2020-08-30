@@ -41,18 +41,17 @@ const AuthPage = () => {
     <div className="row">
       <div className="col s6 offset-s3">
         <h1>Сократи ссылку</h1>
-        <div className="card blue-grey darken-1">
+        <div className="card teal darken-1">
           <div className="card-content white-text">
             <span className="card-title">Авторизация</span>
             <div>
-
               <div className="input-field">
                 <input
                   placeholder="Введите email"
                   id="email"
                   type="text"
                   name="email"
-                  className="white-input"
+                  className="red-input"
                   value={form.email}
                   onChange={changeHandler}
                 />
@@ -65,6 +64,7 @@ const AuthPage = () => {
                   id="password"
                   type="password"
                   name="password"
+                  className="red-input"
                   value={form.password}
                   onChange={changeHandler}
                 />
@@ -74,7 +74,7 @@ const AuthPage = () => {
           </div>
           <div className="card-action">
             <button
-              className="btn yellow darken-4"
+              className="btn orange darken-3"
               style={{ marginRight: 10 }}
               disabled={loading}
               onClick={loginHandler}
@@ -82,7 +82,7 @@ const AuthPage = () => {
               Войти
             </button>
             <button
-              className="btn grey lighten-1"
+              className="btn purple darken-3"
               onClick={registerHandler}
               disabled={loading}
             >

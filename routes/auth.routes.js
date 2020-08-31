@@ -25,7 +25,7 @@ router.post(
       });
     }
 
-    const {email, password} = req.body
+    const { email, password } = req.body
 
     const candidate = await User.findOne({ email })
 

@@ -12,10 +12,10 @@ app.use("/api/link", require("./routes/link.routes"))
 app.use("/t", require("./routes/redirect.routes"))
 
 
-  app.use("/", express.static(path.join(__dirname, './build')))
+  app.use("/", express.static(path.join(__dirname, 'client', 'build')))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client/build/index.html"))
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 
 

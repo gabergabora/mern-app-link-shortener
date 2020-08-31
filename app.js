@@ -11,13 +11,13 @@ app.use('/api/auth', require('./routes/auth.routes'))
 app.use("/api/link", require("./routes/link.routes"))
 app.use("/t", require("./routes/redirect.routes"))
 
-
+if (process.env.NODE_ENV === 'production') {
   app.use("/", express.static(path.join(__dirname, 'client', 'build')))
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
-
+}
 
 const PORT = config.get('port') || 5000
 
@@ -32,7 +32,9 @@ async function start() {
       },
       console.log("Mongoose is here!!!")
     );
-
+      app.listen(PORT, () =>
+      console.log(`I\'ve created a Monster... on port ${PORT}`)
+      );
   } catch (e) {
     console.log('Server error', e.message)
     process.exit(1)
@@ -40,6 +42,6 @@ async function start() {
 }
 
 start()
-app.listen(PORT, () =>
-  console.log(`I\'ve created a Monster... on port ${PORT}`)
-);
+
+
+// "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"

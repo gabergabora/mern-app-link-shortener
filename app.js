@@ -32,9 +32,7 @@ async function start() {
       },
       console.log("Mongoose is here!!!")
     );
-    app.listen(PORT, () =>
-      console.log(`I\'ve created a Monster... on port ${PORT}`)
-    );
+
   } catch (e) {
     console.log('Server error', e.message)
     process.exit(1)
@@ -42,3 +40,6 @@ async function start() {
 }
 
 start()
+app.listen(PORT, () =>
+  console.log(`I\'ve created a Monster... on port ${PORT}`)
+);

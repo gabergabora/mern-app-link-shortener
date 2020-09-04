@@ -2,7 +2,7 @@ const { Router } = require('express')
 const bcrypt = require('bcryptjs')
 const config = require('config')
 const jwt = require('jsonwebtoken')
-const { check, validationResult } = require('express-validator')
+const { check, validationResult, Result } = require('express-validator')
 const User = require('../models/User')
 const router = Router()
 
@@ -20,8 +20,8 @@ router.post(
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        errors: errors.array(),
-        message: "Некорректные данные при регистрации"  // Invalid registration data format
+        errors: errors,
+        message: errors['errors'].map(it => ` ${it['msg']}`)
       });
     }
 
@@ -41,7 +41,7 @@ router.post(
     res.status(201).json({ message: 'Пользователь создан' })  // User created
 
   } catch(e) {
-    res.status(500).json({ message: "Что-то пошло не так, попробуйте снова"});  // Smth went south, try again...
+    res.status(500).json({ message: "Что-то пошло не так, попробуйте снова ЭТО САМЫЙ НИЗ АУФ РЕГ"});  // Smth went south, try again...
   }
 })
 
@@ -55,6 +55,7 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req);
+      // console.log(errors)
 
       if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -74,7 +75,7 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password)
 
       if (!isMatch) {
-        return res.status(400).json({ message: "Неверный пароль, попробуйте снова" });  // Invalid email or password
+        return res.status(400).json({ message: "Неверный логин или пароль, попробуйте снова" });  // Invalid email or password
       }
 
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {expiresIn: "1h"})

@@ -7,11 +7,10 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const token = req.headers.authorization.split(' ')[1] // "Bearer TOKEN"
-    // console.log('Токен', token) // Токен undefined
+    const token = req.headers.authorization.split(' ')[1]
 
     if (!token) {
-      return res.status(401).json({ message: 'Нет авторизации1'})
+      return res.status(401).json({ message: 'Нет авторизации'})
     }
 
     const decoded = jwt.verify(token, config.get("jwtSecret"));
@@ -19,6 +18,6 @@ module.exports = (req, res, next) => {
     next()
 
   } catch (e) {
-    res.status(401).json({ message: "Нет авторизации2" });
+    res.status(401).json({ message: "Нет авторизации" });
   }
 }

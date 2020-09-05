@@ -20,7 +20,7 @@ const Navbar = () => {
         </span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
-            <NavLink to="/create">Создать</NavLink>
+            <NavLink to="/create">Сократить</NavLink>
           </li>
           <li>
             <NavLink to="/links">Ссылки</NavLink>

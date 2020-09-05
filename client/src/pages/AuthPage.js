@@ -6,7 +6,7 @@ import AuthContext from '../context/AuthContext'
 const AuthPage = () => {
   const auth = useContext(AuthContext)
   const message = useMessage()
-  const {loading, request, error, clearError} = useHttp()
+  const { loading, request, error, clearError } = useHttp()
   const [form, setForm] = useState({ email: '', password: '' })
 
 
@@ -41,7 +41,7 @@ const AuthPage = () => {
   return (
     <div className="row">
       <div className="col s6 offset-s3">
-        <h1>Сократи ссылку</h1>
+        <h1 style={{ marginLeft: 10 }}>Сократи ссылку</h1>
         <div className="card teal darken-1">
           <div className="card-content white-text">
             <span className="card-title">Авторизация</span>

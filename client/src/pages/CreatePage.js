@@ -12,15 +12,15 @@ const CreatePage = () => {
   const clickHandler = async() => {
     try {
       const data = await request('/api/link/generate', 'POST', { from: link }, { Authorization: `Bearer ${auth.token}` })
-      history.push(`/detail/${data.link._id}`);
+      history.push(`/detail/${data.link._id}`)
     } catch (e) {}
   }
 
-  const pressHandler = async(event) => {                    // yes, I know about DRY!!! SORRY!!!!
-    if (event.key === 'Enter') {
+  const pressHandler = async(event) => {                            // yes, I know about DRY!!! SORRY!!!!
+    if (event.key === "Enter" || event.key === "NumpadEnter") {
       try {
-        const data = await request('/api/link/generate', 'POST', { from: link }, { Authorization: `Bearer ${auth.token}` })
-        history.push(`/detail/${data.link._id}`);
+        const data = await request("/api/link/generate", "POST", { from: link }, { Authorization: `Bearer ${auth.token}` });
+        history.push(`/detail/${data.link._id}`)
       } catch (e) {}
     }
   }

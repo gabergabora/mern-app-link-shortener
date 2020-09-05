@@ -20,19 +20,8 @@ const DetailPage = () => {
     } catch (e) {}
   }, [token, linkId, request]);
 
-  // eslint-disable-next-line
-  {
-    /* const deleteLink = useCallback(async () => {
-    try {
-      const deleted = await request(`/api/link/${linkId}`, 'DELETE', null, { Authorization: `Bearer ${token}`})
-      setLink(null);
-    } catch (e) {}
-  }, [token, linkId, request]) */
-  }
-
   useEffect(() => {
     getLink();
-    // deleteLink()
   }, [getLink]);
 
   if (loading) {

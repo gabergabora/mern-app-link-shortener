@@ -11,8 +11,8 @@ const router = Router()
 router.post(
   '/register',
   [
-    check('email', 'Некорректный email').isEmail(),  // Invalid email format
-    check('password', 'Минимальная длина пароля 6 символов').isLength({ min: 6 })  // Password min length 6 symbols
+    check('email', 'Некорректный email').isEmail(),
+    check('password', 'Минимальная длина пароля 6 символов').isLength({ min: 6 })
   ],
    async (req, res) => {
   try {
@@ -30,7 +30,7 @@ router.post(
     const candidate = await User.findOne({ email })
 
     if (candidate) {
-      res.status(400).json({ message: 'Такой пользователь уже существует' })  // User already exists
+      res.status(400).json({ message: 'Такой пользователь уже существует' })
     }
 
     const hashedPassword = await bcrypt.hash(password, 12)
@@ -38,10 +38,10 @@ router.post(
 
     await user.save()
 
-    res.status(201).json({ message: 'Пользователь создан' })  // User created
+    res.status(201).json({ message: 'Пользователь создан' })
 
   } catch(e) {
-    res.status(500).json({ message: "Что-то пошло не так, попробуйте снова ЭТО САМЫЙ НИЗ АУФ РЕГ"});  // Smth went south, try again...
+    res.status(500).json({ message: "Что-то пошло не так, попробуйте снова ЭТО САМЫЙ НИЗ АУФ РЕГ"});
   }
 })
 
@@ -49,18 +49,17 @@ router.post(
 router.post(
   "/login",
   [
-    check("email", "Введите корректный email").normalizeEmail().isEmail(),  // Invalid email
-    check("password", "Некорректный email или пароль").exists(),            // Invalid email or password
+    check("email", "Введите корректный email").normalizeEmail().isEmail(),
+    check("password", "Некорректный email или пароль").exists(),
   ],
   async (req, res) => {
     try {
       const errors = validationResult(req);
-      // console.log(errors)
 
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: "Некорректные данные при входе в систему",  // Invalid login data
+          message: "Некорректные данные при входе в систему",
         });
       }
 
@@ -69,20 +68,20 @@ router.post(
       const user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ message: "Пользователь не найден" });  // User not found
+        return res.status(400).json({ message: "Пользователь не найден" });
       }
 
       const isMatch = await bcrypt.compare(password, user.password)
 
       if (!isMatch) {
-        return res.status(400).json({ message: "Неверный логин или пароль, попробуйте снова" });  // Invalid email or password
+        return res.status(400).json({ message: "Неверный логин или пароль, попробуйте снова" });
       }
 
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {expiresIn: "1h"})
 
       res.json({ token, userId: user.id });
     } catch (e) {
-      res.status(500).json({ message: "Что-то пошло не так, попробуйте снова" });  // Smth went south, try again...
+      res.status(500).json({ message: "Что-то пошло не так, попробуйте снова" });  
   }
 })
 
